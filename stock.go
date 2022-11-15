@@ -2,7 +2,6 @@ package alphaVantage
 
 import (
 	"fmt"
-	"net/http"
 )
 
 type IntraDayOptions struct {
@@ -113,16 +112,11 @@ func (c *Client) GetIntraDay(options *IntraDayOptions) (*IntraDayList, error) {
 			outputSize = options.OutputSize
 		}
 	}
-	req, err := http.NewRequest("GET", fmt.Sprintf("%s/query?function=%v&symbol=%v&interval=%v&adjusted=%v&outputsize=%v&apikey=%v", c.baseURL, function, symbol, interval, adjusted, outputSize, c.apiKey), nil)
-
-	if err != nil {
-		return nil, err
-	}
-
-	req.Header.Set("Content-Type", "application/json; charset=utf-8")
 
 	res := IntraDayList{}
-	if err := c.sendRequest(req, &res); err != nil {
+	query := fmt.Sprintf("%s/query?function=%v&symbol=%v&interval=%v&adjusted=%v&outputsize=%v&apikey=%v", c.baseURL, function, symbol, interval, adjusted, outputSize, c.apiKey)
+
+	if err := c.processRequest(query, &res); err != nil {
 		return nil, err
 	}
 	return &res, nil
@@ -140,16 +134,10 @@ func (c *Client) GetDaily(options *DailyOptions) (*DailyList, error) {
 		}
 	}
 
-	req, err := http.NewRequest("GET", fmt.Sprintf("%s/query?function=%v&symbol=%v&outputsize=%v&apikey=%v", c.baseURL, function, symbol, outputSize, c.apiKey), nil)
-
-	if err != nil {
-		return nil, err
-	}
-
-	req.Header.Set("Content-Type", "application/json; charset=utf-8")
-
 	res := DailyList{}
-	if err := c.sendRequest(req, &res); err != nil {
+	query := fmt.Sprintf("%s/query?function=%v&symbol=%v&outputsize=%v&apikey=%v", c.baseURL, function, symbol, outputSize, c.apiKey)
+
+	if err := c.processRequest(query, &res); err != nil {
 		return nil, err
 	}
 	return &res, nil
@@ -167,16 +155,10 @@ func (c *Client) GetDailyAdjusted(options *DailyAdjustedOptions) (*DailyAdjusted
 		}
 	}
 
-	req, err := http.NewRequest("GET", fmt.Sprintf("%s/query?function=%v&symbol=%v&outputsize=%v&apikey=%v", c.baseURL, function, symbol, outputSize, c.apiKey), nil)
-
-	if err != nil {
-		return nil, err
-	}
-
-	req.Header.Set("Content-Type", "application/json; charset=utf-8")
-
 	res := DailyAdjustedList{}
-	if err := c.sendRequest(req, &res); err != nil {
+	query := fmt.Sprintf("%s/query?function=%v&symbol=%v&outputsize=%v&apikey=%v", c.baseURL, function, symbol, outputSize, c.apiKey)
+
+	if err := c.processRequest(query, &res); err != nil {
 		return nil, err
 	}
 	return &res, nil
@@ -190,16 +172,10 @@ func (c *Client) GetWeekly(options *WeeklyOptions) (*WeeklyList, error) {
 		symbol = options.Symbol
 	}
 
-	req, err := http.NewRequest("GET", fmt.Sprintf("%s/query?function=%v&symbol=%v&apikey=%v", c.baseURL, function, symbol, c.apiKey), nil)
-
-	if err != nil {
-		return nil, err
-	}
-
-	req.Header.Set("Content-Type", "application/json; charset=utf-8")
-
 	res := WeeklyList{}
-	if err := c.sendRequest(req, &res); err != nil {
+	query := fmt.Sprintf("%s/query?function=%v&symbol=%v&apikey=%v", c.baseURL, function, symbol, c.apiKey)
+
+	if err := c.processRequest(query, &res); err != nil {
 		return nil, err
 	}
 	return &res, nil
@@ -213,16 +189,10 @@ func (c *Client) GetWeeklyAdjusted(options *WeeklyAdjustedOptions) (*WeeklyAdjus
 		symbol = options.Symbol
 	}
 
-	req, err := http.NewRequest("GET", fmt.Sprintf("%s/query?function=%v&symbol=%v&apikey=%v", c.baseURL, function, symbol, c.apiKey), nil)
-
-	if err != nil {
-		return nil, err
-	}
-
-	req.Header.Set("Content-Type", "application/json; charset=utf-8")
-
 	res := WeeklyAdjustedList{}
-	if err := c.sendRequest(req, &res); err != nil {
+	query := fmt.Sprintf("%s/query?function=%v&symbol=%v&apikey=%v", c.baseURL, function, symbol, c.apiKey)
+
+	if err := c.processRequest(query, &res); err != nil {
 		return nil, err
 	}
 	return &res, nil

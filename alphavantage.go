@@ -54,3 +54,19 @@ func (c *Client) sendRequest(req *http.Request, v interface{}) error {
 
 	return nil
 }
+
+func (c *Client) processRequest(query string, v interface{}) error {
+	req, err := http.NewRequest("GET", query, nil)
+
+	if err != nil {
+		return err
+	}
+
+	req.Header.Set("Content-Type", "application/json; charset=utf-8")
+
+	res := v
+	if err := c.sendRequest(req, &res); err != nil {
+		return err
+	}
+	return nil
+}
