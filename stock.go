@@ -24,6 +24,10 @@ type WeeklyOptions struct {
 
 type WeeklyAdjustedOptions WeeklyOptions
 
+type MonthlyOptions WeeklyOptions
+
+type MonthlyAdjustedOptions WeeklyOptions
+
 type IntraDayList struct {
 	MetaData        IntraDayMetaData `json:"Meta Data"`
 	TimeSeries1Min  map[string]OHLC  `json:"Time Series (1min),omitempty"`
@@ -53,6 +57,16 @@ type WeeklyAdjustedList struct {
 	WeeklyTimeSeries map[string]OHLCAdjusted `json:"Weekly Adjusted Time Series"`
 }
 
+type MonthlyList struct {
+	MetaData          MonthlyMetaData `json:"Meta Data"`
+	MonthlyTimeSeries map[string]OHLC `json:"Monthly Time Series"`
+}
+
+type MonthlyAdjustedList struct {
+	MetaData          MonthlyAdjustedMetaData `json:"Meta Data"`
+	MonthlyTimeSeries map[string]OHLCAdjusted `json:"Monthly Adjusted Time Series"`
+}
+
 type IntraDayMetaData struct {
 	Information   string `json:"1. Information"`
 	Symbol        string `json:"2. Symbol"`
@@ -76,6 +90,10 @@ type WeeklyMetaData struct {
 	LastRefreshed string `json:"3. Last Refreshed"`
 	TimeZone      string `json:"4. Time Zone"`
 }
+
+type MonthlyMetaData WeeklyMetaData
+
+type MonthlyAdjustedMetaData WeeklyMetaData
 
 type OHLC struct {
 	Open   string `json:"1. open"`
@@ -195,5 +213,40 @@ func (c *Client) GetWeeklyAdjusted(options *WeeklyAdjustedOptions) (*WeeklyAdjus
 	if err := c.processRequest(query, &res); err != nil {
 		return nil, err
 	}
+	return &res, nil
+}
+
+func (c *Client) GetMonthly(options *MonthlyOptions) (*MonthlyList, error) {
+	const function = "TIME_SERIES_MONTHLY"
+	var symbol string
+
+	if options != nil {
+		symbol = options.Symbol
+	}
+
+	res := MonthlyList{}
+	query := fmt.Sprintf("%s/query?function=%v&symbol=%v&apikey=%v", c.baseURL, function, symbol, c.apiKey)
+
+	if err := c.processRequest(query, &res); err != nil {
+		return nil, err
+	}
+	return &res, nil
+}
+
+func (c *Client) GetMonthlyAdjusted(options *MonthlyAdjustedOptions) (*MonthlyAdjustedList, error) {
+	const function = "TIME_SERIES_MONTHLY_ADJUSTED"
+	var symbol string
+
+	if options != nil {
+		symbol = options.Symbol
+	}
+
+	res := MonthlyAdjustedList{}
+	query := fmt.Sprintf("%s/query?function=%v&symbol=%v&apikey=%v", c.baseURL, function, symbol, c.apiKey)
+
+	if err := c.processRequest(query, &res); err != nil {
+		return nil, err
+	}
+	fmt.Println(res)
 	return &res, nil
 }

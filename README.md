@@ -17,8 +17,8 @@ calls available in their documentation http://www.alphavantage.co/documentation.
 - [x] Daily Adjusted
 - [x] Weekly
 - [x] Weekly Adjusted
-- [ ] Monthly
-- [ ] Monthly Adjusted
+- [x] Monthly
+- [x] Monthly Adjusted
 - [ ] Quote
 - [ ] Search
 
