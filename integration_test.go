@@ -73,3 +73,12 @@ func TestGetMonthlyAdjusted(t *testing.T) {
 	res, _ := c.GetMonthlyAdjusted(options)
 	assert.Equal(t, res.MetaData.Symbol, "IBM")
 }
+
+func TestGetQuote(t *testing.T) {
+	c := NewClient(os.Getenv("ALPHA_Vantage_API_KEY"))
+	options := &QuoteOptions{
+		Symbol: "IBM",
+	}
+	res, _ := c.GetQuote(options)
+	assert.Equal(t, res.GlobalQuote.Symbol, "IBM")
+}

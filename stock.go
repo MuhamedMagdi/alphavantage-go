@@ -28,6 +28,8 @@ type MonthlyOptions WeeklyOptions
 
 type MonthlyAdjustedOptions WeeklyOptions
 
+type QuoteOptions WeeklyOptions
+
 type IntraDayList struct {
 	MetaData        IntraDayMetaData `json:"Meta Data"`
 	TimeSeries1Min  map[string]OHLC  `json:"Time Series (1min),omitempty"`
@@ -65,6 +67,21 @@ type MonthlyList struct {
 type MonthlyAdjustedList struct {
 	MetaData          MonthlyAdjustedMetaData `json:"Meta Data"`
 	MonthlyTimeSeries map[string]OHLCAdjusted `json:"Monthly Adjusted Time Series"`
+}
+
+type QuoteList struct {
+	GlobalQuote struct {
+		Symbol           string `json:"01. symbol"`
+		Open             string `json:"02. open"`
+		High             string `json:"03. high"`
+		Low              string `json:"04. low"`
+		Price            string `json:"05. price"`
+		Volume           string `json:"06. volume"`
+		LatestTradingDay string `json:"07. latest trading day"`
+		PreviousClose    string `json:"08. previous close"`
+		Change           string `json:"09. change"`
+		ChangePercent    string `json:"10. change percent"`
+	} `json:"Global Quote"`
 }
 
 type IntraDayMetaData struct {
@@ -247,6 +264,22 @@ func (c *Client) GetMonthlyAdjusted(options *MonthlyAdjustedOptions) (*MonthlyAd
 	if err := c.processRequest(query, &res); err != nil {
 		return nil, err
 	}
-	fmt.Println(res)
+	return &res, nil
+}
+
+func (c *Client) GetQuote(options *QuoteOptions) (*QuoteList, error) {
+	const function = "GLOBAL_QUOTE"
+	var symbol string
+
+	if options != nil {
+		symbol = options.Symbol
+	}
+
+	res := QuoteList{}
+	query := fmt.Sprintf("%s/query?function=%v&symbol=%v&apikey=%v", c.baseURL, function, symbol, c.apiKey)
+
+	if err := c.processRequest(query, &res); err != nil {
+		return nil, err
+	}
 	return &res, nil
 }
