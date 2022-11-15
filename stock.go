@@ -17,6 +17,8 @@ type DailyOptions struct {
 	OutputSize string `json:"outputsize,omitempty"`
 }
 
+type DailyAdjustedOptions DailyOptions
+
 type IntraDayList struct {
 	MetaData        IntraDayMetaData `json:"Meta Data"`
 	TimeSeries1Min  map[string]OHLC  `json:"Time Series (1min),omitempty"`
@@ -130,7 +132,7 @@ func (c *Client) GetDaily(options *DailyOptions) (*DailyList, error) {
 	return &res, nil
 }
 
-func (c *Client) GetDailyAdjusted(options *DailyOptions) (*DailyAdjustedList, error) {
+func (c *Client) GetDailyAdjusted(options *DailyAdjustedOptions) (*DailyAdjustedList, error) {
 	const function = "TIME_SERIES_DAILY_ADJUSTED"
 	var symbol string
 	outputSize := "compact"

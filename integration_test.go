@@ -31,7 +31,7 @@ func TestGetDaily(t *testing.T) {
 
 func TestGetDailyAdjusted(t *testing.T) {
 	c := NewClient(os.Getenv("ALPHA_Vantage_API_KEY"))
-	options := &DailyOptions{
+	options := &DailyAdjustedOptions{
 		Symbol: "IBM",
 	}
 	res, _ := c.GetDailyAdjusted(options)
