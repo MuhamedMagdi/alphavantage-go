@@ -31,6 +31,11 @@ type DailyList struct {
 	TimeSeriesDaily map[string]OHLC `json:"Time Series (Daily)"`
 }
 
+type DailyAdjustedList struct {
+	MetaData        DailyMetaData           `json:"Meta Data"`
+	TimeSeriesDaily map[string]OHLCAdjusted `json:"Time Series (Daily)"`
+}
+
 type IntraDayMetaData struct {
 	Information   string `json:"1. Information"`
 	Symbol        string `json:"2. Symbol"`
@@ -54,6 +59,17 @@ type OHLC struct {
 	Low    string `json:"3. low"`
 	Close  string `json:"4. close"`
 	Volume string `json:"5. volume"`
+}
+
+type OHLCAdjusted struct {
+	Open             string `json:"1. open"`
+	High             string `json:"2. high"`
+	Low              string `json:"3. low"`
+	Close            string `json:"4. close"`
+	AdjustedClose    string `json:"5. adjusted close"`
+	Volume           string `json:"6. volume"`
+	DividendAmount   string `json:"7. dividend amount"`
+	SplitCoefficient string `json:"8. split coefficient"`
 }
 
 func (c *Client) GetIntraDay(options *IntraDayOptions) (*IntraDayList, error) {
@@ -108,6 +124,33 @@ func (c *Client) GetDaily(options *DailyOptions) (*DailyList, error) {
 	req.Header.Set("Content-Type", "application/json; charset=utf-8")
 
 	res := DailyList{}
+	if err := c.sendRequest(req, &res); err != nil {
+		return nil, err
+	}
+	return &res, nil
+}
+
+func (c *Client) GetDailyAdjusted(options *DailyOptions) (*DailyAdjustedList, error) {
+	const function = "TIME_SERIES_DAILY_ADJUSTED"
+	var symbol string
+	outputSize := "compact"
+
+	if options != nil {
+		symbol = options.Symbol
+		if options.OutputSize != "" {
+			outputSize = options.OutputSize
+		}
+	}
+
+	req, err := http.NewRequest("GET", fmt.Sprintf("%s/query?function=%v&symbol=%v&outputsize=%v&apikey=%v", c.baseURL, function, symbol, outputSize, c.apiKey), nil)
+
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Set("Content-Type", "application/json; charset=utf-8")
+
+	res := DailyAdjustedList{}
 	if err := c.sendRequest(req, &res); err != nil {
 		return nil, err
 	}

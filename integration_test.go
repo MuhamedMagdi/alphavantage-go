@@ -28,3 +28,12 @@ func TestGetDaily(t *testing.T) {
 	res, _ := c.GetDaily(options)
 	assert.Equal(t, res.MetaData.Symbol, "IBM")
 }
+
+func TestGetDailyAdjusted(t *testing.T) {
+	c := NewClient(os.Getenv("ALPHA_Vantage_API_KEY"))
+	options := &DailyOptions{
+		Symbol: "IBM",
+	}
+	res, _ := c.GetDailyAdjusted(options)
+	assert.Equal(t, res.MetaData.Symbol, "IBM")
+}
