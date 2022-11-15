@@ -18,3 +18,13 @@ func TestGetIntraDay(t *testing.T) {
 	res, _ := c.GetIntraDay(options)
 	assert.Equal(t, res.MetaData.Symbol, "IBM")
 }
+
+func TestGetDaily(t *testing.T) {
+	c := NewClient(os.Getenv("ALPHA_Vantage_API_KEY"))
+	options := &DailyOptions{
+		Symbol:     "IBM",
+		OutputSize: "full",
+	}
+	res, _ := c.GetDaily(options)
+	assert.Equal(t, res.MetaData.Symbol, "IBM")
+}
