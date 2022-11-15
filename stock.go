@@ -8,7 +8,7 @@ import (
 type IntraDayOptions struct {
 	Symbol     string `json:"symbol"`
 	Interval   string `json:"interval"`
-	Adjusted   bool   `json:"adjusted,omitempty"`
+	Adjusted   string `json:"adjusted,omitempty"`
 	OutputSize string `json:"outputsize,omitempty"`
 }
 
@@ -40,10 +40,9 @@ type OHLC struct {
 
 func (c *Client) GetIntraDay(options *IntraDayOptions) (*IntraDayList, error) {
 	const function = "TIME_SERIES_INTRADAY"
-	symbol := "IBM"
-	interval := "5min"
-	adjusted := false
-	outputSize := ""
+	var symbol, interval string
+	adjusted := "true"
+	outputSize := "compact"
 
 	if options != nil {
 		if options.Symbol != "" {
@@ -55,14 +54,14 @@ func (c *Client) GetIntraDay(options *IntraDayOptions) (*IntraDayList, error) {
 		if options.Symbol != "" {
 			symbol = options.Symbol
 		}
-		if options.Adjusted {
+		if options.Adjusted != "" {
 			adjusted = options.Adjusted
 		}
 		if options.OutputSize != "" {
 			outputSize = options.OutputSize
 		}
 	}
-	req, err := http.NewRequest("GET", fmt.Sprintf("%s/query?function=%v&symbol=%v&interval=%v&adjusted=%t&outputsize=%v&apikey=%v", c.baseURL, function, symbol, interval, adjusted, outputSize, c.apiKey), nil)
+	req, err := http.NewRequest("GET", fmt.Sprintf("%s/query?function=%v&symbol=%v&interval=%v&adjusted=%v&outputsize=%v&apikey=%v", c.baseURL, function, symbol, interval, adjusted, outputSize, c.apiKey), nil)
 
 	if err != nil {
 		return nil, err
