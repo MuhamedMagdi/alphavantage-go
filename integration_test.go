@@ -46,3 +46,12 @@ func TestGetWeekly(t *testing.T) {
 	res, _ := c.GetWeekly(options)
 	assert.Equal(t, res.MetaData.Symbol, "IBM")
 }
+
+func TestGetWeeklyAdjusted(t *testing.T) {
+	c := NewClient(os.Getenv("ALPHA_Vantage_API_KEY"))
+	options := &WeeklyAdjustedOptions{
+		Symbol: "IBM",
+	}
+	res, _ := c.GetWeeklyAdjusted(options)
+	assert.Equal(t, res.MetaData.Symbol, "IBM")
+}

@@ -23,6 +23,8 @@ type WeeklyOptions struct {
 	Symbol string `json:"symbol"`
 }
 
+type WeeklyAdjustedOptions WeeklyOptions
+
 type IntraDayList struct {
 	MetaData        IntraDayMetaData `json:"Meta Data"`
 	TimeSeries1Min  map[string]OHLC  `json:"Time Series (1min),omitempty"`
@@ -45,6 +47,11 @@ type DailyAdjustedList struct {
 type WeeklyList struct {
 	MetaData         WeeklyMetaData  `json:"Meta Data"`
 	WeeklyTimeSeries map[string]OHLC `json:"Weekly Time Series"`
+}
+
+type WeeklyAdjustedList struct {
+	MetaData         WeeklyMetaData          `json:"Meta Data"`
+	WeeklyTimeSeries map[string]OHLCAdjusted `json:"Weekly Adjusted Time Series"`
 }
 
 type IntraDayMetaData struct {
@@ -87,7 +94,7 @@ type OHLCAdjusted struct {
 	AdjustedClose    string `json:"5. adjusted close"`
 	Volume           string `json:"6. volume"`
 	DividendAmount   string `json:"7. dividend amount"`
-	SplitCoefficient string `json:"8. split coefficient"`
+	SplitCoefficient string `json:"8. split coefficient,omitempty"`
 }
 
 func (c *Client) GetIntraDay(options *IntraDayOptions) (*IntraDayList, error) {
@@ -192,6 +199,29 @@ func (c *Client) GetWeekly(options *WeeklyOptions) (*WeeklyList, error) {
 	req.Header.Set("Content-Type", "application/json; charset=utf-8")
 
 	res := WeeklyList{}
+	if err := c.sendRequest(req, &res); err != nil {
+		return nil, err
+	}
+	return &res, nil
+}
+
+func (c *Client) GetWeeklyAdjusted(options *WeeklyAdjustedOptions) (*WeeklyAdjustedList, error) {
+	const function = "TIME_SERIES_WEEKLY_ADJUSTED"
+	var symbol string
+
+	if options != nil {
+		symbol = options.Symbol
+	}
+
+	req, err := http.NewRequest("GET", fmt.Sprintf("%s/query?function=%v&symbol=%v&apikey=%v", c.baseURL, function, symbol, c.apiKey), nil)
+
+	if err != nil {
+		return nil, err
+	}
+
+	req.Header.Set("Content-Type", "application/json; charset=utf-8")
+
+	res := WeeklyAdjustedList{}
 	if err := c.sendRequest(req, &res); err != nil {
 		return nil, err
 	}
