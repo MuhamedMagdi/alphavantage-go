@@ -22,7 +22,9 @@ calls available in their documentation http://www.alphavantage.co/documentation.
 - [x] Quote
 - [x] Search
 
-### Alpha Intelligence (Not Implemented)
+### Alpha Intelligence 
+- [x] News & Sentiment 
+- [x] Winning Portfolios
 
 ### Fundamental Data (Not Implemented)
 
