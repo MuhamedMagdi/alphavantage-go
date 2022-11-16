@@ -156,3 +156,20 @@ func (c *Client) GetQuote(options *QuoteOptions) (*QuoteList, error) {
 	}
 	return &res, nil
 }
+
+func (c *Client) Search(options *SearchOptions) (*SearchList, error) {
+	const function = "SYMBOL_SEARCH"
+	var keywords string
+
+	if options != nil {
+		keywords = options.Keywords
+	}
+
+	res := SearchList{}
+	query := fmt.Sprintf("%s/query?function=%v&keywords=%v&apikey=%v", c.baseURL, function, keywords, c.apiKey)
+
+	if err := c.processRequest(query, &res); err != nil {
+		return nil, err
+	}
+	return &res, nil
+}

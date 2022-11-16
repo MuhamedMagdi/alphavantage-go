@@ -4,9 +4,10 @@
 package alphaVantage
 
 import (
-	"github.com/stretchr/testify/assert"
 	"os"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
 func TestGetIntraDay(t *testing.T) {
@@ -81,4 +82,13 @@ func TestGetQuote(t *testing.T) {
 	}
 	res, _ := c.GetQuote(options)
 	assert.Equal(t, res.GlobalQuote.Symbol, "IBM")
+}
+
+func TestSearch(t *testing.T) {
+	c := NewClient(os.Getenv("ALPHA_Vantage_API_KEY"))
+	options := &SearchOptions{
+		Keywords: "IBM",
+	}
+	res, _ := c.Search(options)
+	assert.Equal(t, res.BestMatches[0].Symbol, "IBM")
 }

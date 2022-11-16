@@ -26,6 +26,10 @@ type MonthlyAdjustedOptions WeeklyOptions
 
 type QuoteOptions WeeklyOptions
 
+type SearchOptions struct {
+	Keywords string `json:"keywords"`
+}
+
 type IntraDayList struct {
 	MetaData        IntraDayMetaData `json:"Meta Data"`
 	TimeSeries1Min  map[string]OHLC  `json:"Time Series (1min),omitempty"`
@@ -78,6 +82,20 @@ type QuoteList struct {
 		Change           string `json:"09. change"`
 		ChangePercent    string `json:"10. change percent"`
 	} `json:"Global Quote"`
+}
+
+type SearchList struct {
+	BestMatches []struct {
+		Symbol      string `json:"1. symbol"`
+		Name        string `json:"2. name"`
+		Type        string `json:"3. type"`
+		Region      string `json:"4. region"`
+		MarketOpen  string `json:"5. marketOpen"`
+		MarketClose string `json:"6. marketClose"`
+		Timezone    string `json:"7. timezone"`
+		Currency    string `json:"8. currency"`
+		MatchScore  string `json:"9. matchScore"`
+	} `json:"bestMatches"`
 }
 
 type IntraDayMetaData struct {

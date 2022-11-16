@@ -20,7 +20,7 @@ calls available in their documentation http://www.alphavantage.co/documentation.
 - [x] Monthly
 - [x] Monthly Adjusted
 - [x] Quote
-- [ ] Search
+- [x] Search
 
 ### Alpha Intelligence (Not Implemented)
 
