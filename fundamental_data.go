@@ -33,3 +33,20 @@ func (c *Client) GetIncomeStatement(options *IncomeStatementOptions) (*IncomeSta
 	}
 	return &res, nil
 }
+
+func (c *Client) GetBalanceSheet(options *BalanceSheetOptions) (*BalanceSheetList, error) {
+	const function = "BALANCE_SHEET"
+	var symbol string
+	if options != nil {
+		symbol = options.Symbol
+	}
+
+	res := BalanceSheetList{}
+	query := fmt.Sprintf("%s/query?function=%s&symbol=%s&apikey=%s", c.baseURL, function, symbol, c.apiKey)
+
+	if err := c.processRequest(query, &res); err != nil {
+		return nil, err
+	}
+	fmt.Println(res)
+	return &res, nil
+}

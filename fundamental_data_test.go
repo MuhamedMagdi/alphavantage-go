@@ -27,3 +27,12 @@ func TestGetIncomeStatement(t *testing.T) {
 	res, _ := c.GetIncomeStatement(options)
 	assert.Equal(t, res.Symbol, "IBM")
 }
+
+func TestGetBalanceSheet(t *testing.T) {
+	c := NewClient("demo")
+	options := &BalanceSheetOptions{
+		Symbol: "IBM",
+	}
+	res, _ := c.GetBalanceSheet(options)
+	assert.Equal(t, res.Symbol, "IBM")
+}
