@@ -29,10 +29,19 @@ func TestGetIncomeStatement(t *testing.T) {
 }
 
 func TestGetBalanceSheet(t *testing.T) {
-	c := NewClient("demo")
+	c := NewClient(os.Getenv("ALPHA_Vantage_API_KEY"))
 	options := &BalanceSheetOptions{
 		Symbol: "IBM",
 	}
 	res, _ := c.GetBalanceSheet(options)
+	assert.Equal(t, res.Symbol, "IBM")
+}
+
+func TestGetCashFlow(t *testing.T) {
+	c := NewClient(os.Getenv("ALPHA_Vantage_API_KEY"))
+	options := &CashFlowOptions{
+		Symbol: "IBM",
+	}
+	res, _ := c.GetCashFlow(options)
 	assert.Equal(t, res.Symbol, "IBM")
 }

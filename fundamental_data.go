@@ -47,6 +47,21 @@ func (c *Client) GetBalanceSheet(options *BalanceSheetOptions) (*BalanceSheetLis
 	if err := c.processRequest(query, &res); err != nil {
 		return nil, err
 	}
-	fmt.Println(res)
+	return &res, nil
+}
+
+func (c *Client) GetCashFlow(options *CashFlowOptions) (*CashFlowList, error) {
+	const function = "CASH_FLOW"
+	var symbol string
+	if options != nil {
+		symbol = options.Symbol
+	}
+
+	res := CashFlowList{}
+	query := fmt.Sprintf("%s/query?function=%s&symbol=%s&apikey=%s", c.baseURL, function, symbol, c.apiKey)
+
+	if err := c.processRequest(query, &res); err != nil {
+		return nil, err
+	}
 	return &res, nil
 }
