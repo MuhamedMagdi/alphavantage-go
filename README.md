@@ -26,7 +26,15 @@ calls available in their documentation http://www.alphavantage.co/documentation.
 - [x] News & Sentiment 
 - [x] Winning Portfolios
 
-### Fundamental Data (Not Implemented)
+### Fundamental Data (WIP)
+- [x] Company Overview
+- [ ] Income Statement Premium
+- [ ] Balance Sheet Premium
+- [ ] Cash Flow Premium
+- [ ] Earnings
+- [ ] Listing & Delisting Status
+- [ ] Earnings Calendar
+- [ ] IPO Calendar
 
 ### Forex(FX) (Not Implemented)
 
