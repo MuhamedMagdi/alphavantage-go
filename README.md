@@ -28,9 +28,9 @@ calls available in their documentation http://www.alphavantage.co/documentation.
 
 ### Fundamental Data (WIP)
 - [x] Company Overview
-- [ ] Income Statement Premium
-- [ ] Balance Sheet Premium
-- [ ] Cash Flow Premium
+- [x] Income Statement
+- [ ] Balance Sheet
+- [ ] Cash Flow
 - [ ] Earnings
 - [ ] Listing & Delisting Status
 - [ ] Earnings Calendar
