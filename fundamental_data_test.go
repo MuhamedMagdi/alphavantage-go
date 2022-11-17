@@ -45,3 +45,12 @@ func TestGetCashFlow(t *testing.T) {
 	res, _ := c.GetCashFlow(options)
 	assert.Equal(t, res.Symbol, "IBM")
 }
+
+func TestGetEarnings(t *testing.T) {
+	c := NewClient(os.Getenv("ALPHA_Vantage_API_KEY"))
+	options := &EarningsOptions{
+		Symbol: "IBM",
+	}
+	res, _ := c.GetEarnings(options)
+	assert.Equal(t, res.Symbol, "IBM")
+}

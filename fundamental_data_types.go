@@ -10,6 +10,8 @@ type BalanceSheetOptions CompanyOverviewOptions
 
 type CashFlowOptions CompanyOverviewOptions
 
+type EarningsOptions CompanyOverviewOptions
+
 type CompanyOverviewList struct {
 	Symbol                     string `json:"Symbol"`
 	AssetType                  string `json:"AssetType"`
@@ -279,4 +281,24 @@ type CashFlowQuarterlyReports struct {
 	ChangeInCashAndCashEquivalents                            string `json:"changeInCashAndCashEquivalents"`
 	ChangeInExchangeRate                                      string `json:"changeInExchangeRate"`
 	NetIncome                                                 string `json:"netIncome"`
+}
+
+type EarningsList struct {
+	Symbol            string                      `json:"symbol"`
+	AnnualEarnings    []EarningsAnnualEarnings    `json:"annualEarnings"`
+	QuarterlyEarnings []EarningsQuarterlyEarnings `json:"quarterlyEarnings"`
+}
+
+type EarningsAnnualEarnings struct {
+	FiscalDateEnding string `json:"fiscalDateEnding"`
+	ReportedEPS      string `json:"reportedEPS"`
+}
+
+type EarningsQuarterlyEarnings struct {
+	FiscalDateEnding   string `json:"fiscalDateEnding"`
+	ReportedDate       string `json:"reportedDate"`
+	ReportedEPS        string `json:"reportedEPS"`
+	EstimatedEPS       string `json:"estimatedEPS"`
+	Surprise           string `json:"surprise"`
+	SurprisePercentage string `json:"surprisePercentage"`
 }

@@ -31,7 +31,7 @@ calls available in their documentation http://www.alphavantage.co/documentation.
 - [x] Income Statement
 - [x] Balance Sheet
 - [x] Cash Flow
-- [ ] Earnings
+- [x] Earnings
 - [ ] Listing & Delisting Status
 - [ ] Earnings Calendar
 - [ ] IPO Calendar

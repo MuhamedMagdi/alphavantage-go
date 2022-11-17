@@ -65,3 +65,19 @@ func (c *Client) GetCashFlow(options *CashFlowOptions) (*CashFlowList, error) {
 	}
 	return &res, nil
 }
+
+func (c *Client) GetEarnings(options *EarningsOptions) (*EarningsList, error) {
+	const function = "EARNINGS"
+	var symbol string
+	if options != nil {
+		symbol = options.Symbol
+	}
+
+	res := EarningsList{}
+	query := fmt.Sprintf("%s/query?function=%s&symbol=%s&apikey=%s", c.baseURL, function, symbol, c.apiKey)
+
+	if err := c.processRequest(query, &res); err != nil {
+		return nil, err
+	}
+	return &res, nil
+}
