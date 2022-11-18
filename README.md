@@ -38,7 +38,7 @@ calls available in their documentation http://www.alphavantage.co/documentation.
 
 ### Forex(FX) (WIP)
 - [x] Exchange Rates
-- [ ] Intraday
+- [x] Intraday
 - [ ] Daily
 - [ ] Weekly
 - [ ] Monthly
