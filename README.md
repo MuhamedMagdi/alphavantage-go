@@ -36,7 +36,12 @@ calls available in their documentation http://www.alphavantage.co/documentation.
 - [ ] Earnings Calendar
 - [ ] IPO Calendar
 
-### Forex(FX) (Not Implemented)
+### Forex(FX) (WIP)
+- [x] Exchange Rates
+- [ ] Intraday
+- [ ] Daily
+- [ ] Weekly
+- [ ] Monthly
 
 ### Cryptocurrencies (Not Implemented)
 
