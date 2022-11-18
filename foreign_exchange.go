@@ -37,3 +37,21 @@ func (c *Client) GetCryptoIntraDay(options *CryptoIntrDayOptions) (*CryptoIntraD
 	}
 	return &res, nil
 }
+
+func (c *Client) GetCryptoDaily(options *CryptoDailyOptions) (*CryptoDailyList, error) {
+	const function = "DIGITAL_CURRENCY_DAILY"
+	var symbol, market string
+	if options != nil {
+		symbol = options.Symbol
+		market = options.Market
+	}
+
+	res := CryptoDailyList{}
+	query := fmt.Sprintf("%s/query?function=%s&symbol=%s&market=%s&&apikey=%s", c.baseURL, function, symbol, market, c.apiKey)
+
+	if err := c.processRequest(query, &res); err != nil {
+		return nil, err
+	}
+	fmt.Println(res)
+	return &res, nil
+}

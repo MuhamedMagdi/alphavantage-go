@@ -12,6 +12,11 @@ type CryptoIntrDayOptions struct {
 	OutputSize string `json:"outputsize,omitempty"`
 }
 
+type CryptoDailyOptions struct {
+	Symbol string `json:"symbol"`
+	Market string `json:"market"`
+}
+
 type CurrencyExchangeRateList struct {
 	RealtimeCurrencyExchangeRate struct {
 		FromCurrencyCode string `json:"1. From_Currency Code"`
@@ -27,15 +32,15 @@ type CurrencyExchangeRateList struct {
 }
 
 type CryptoIntraDayList struct {
-	MetaData              CryptoMetaData        `json:"Meta Data"`
-	TimeSeriesCrypto1Min  map[string]CryptoOHLC `json:"Time Series Crypto (1min),omitempty"`
-	TimeSeriesCrypto5Min  map[string]CryptoOHLC `json:"Time Series Crypto (5min),omitempty"`
-	TimeSeriesCrypto15Min map[string]CryptoOHLC `json:"Time Series Crypto (15min),omitempty"`
-	TimeSeriesCrypto30Min map[string]CryptoOHLC `json:"Time Series Crypto (30min),omitempty"`
-	TimeSeriesCrypto60Min map[string]CryptoOHLC `json:"Time Series Crypto (60min),omitempty"`
+	MetaData              CryptoIntraDayMetaData        `json:"Meta Data"`
+	TimeSeriesCrypto1Min  map[string]CryptoIntraDayOHLC `json:"Time Series Crypto (1min),omitempty"`
+	TimeSeriesCrypto5Min  map[string]CryptoIntraDayOHLC `json:"Time Series Crypto (5min),omitempty"`
+	TimeSeriesCrypto15Min map[string]CryptoIntraDayOHLC `json:"Time Series Crypto (15min),omitempty"`
+	TimeSeriesCrypto30Min map[string]CryptoIntraDayOHLC `json:"Time Series Crypto (30min),omitempty"`
+	TimeSeriesCrypto60Min map[string]CryptoIntraDayOHLC `json:"Time Series Crypto (60min),omitempty"`
 }
 
-type CryptoMetaData struct {
+type CryptoIntraDayMetaData struct {
 	Information         string `json:"1. Information"`
 	DigitalCurrencyCode string `json:"2. Digital Currency Code"`
 	DigitalCurrencyName string `json:"3. Digital Currency Name"`
@@ -47,10 +52,26 @@ type CryptoMetaData struct {
 	TimeZone            string `json:"9. Time Zone"`
 }
 
-type CryptoOHLC struct {
+type CryptoIntraDayOHLC struct {
 	Open   string `json:"1. open"`
 	High   string `json:"2. high"`
 	Low    string `json:"3. low"`
 	Close  string `json:"4. close"`
 	Volume int    `json:"5. volume"`
+}
+
+type CryptoDailyList struct {
+	MetaData                       CryptoDailyMetaData          `json:"Meta Data"`
+	TimeSeriesDigitalCurrencyDaily map[string]map[string]string `json:"Time Series (Digital Currency Daily)"`
+	// FIXME: update the type				  ^
+}
+
+type CryptoDailyMetaData struct {
+	Information         string `json:"1. Information"`
+	DigitalCurrencyCode string `json:"2. Digital Currency Code"`
+	DigitalCurrencyName string `json:"3. Digital Currency Name"`
+	MarketCode          string `json:"4. Market Code"`
+	MarketName          string `json:"5. Market Name"`
+	LastRefreshed       string `json:"6. Last Refreshed"`
+	TimeZone            string `json:"7. Time Zone"`
 }
