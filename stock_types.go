@@ -31,42 +31,42 @@ type SearchOptions struct {
 }
 
 type IntraDayList struct {
-	MetaData        IntraDayMetaData `json:"Meta Data"`
-	TimeSeries1Min  map[string]OHLC  `json:"Time Series (1min),omitempty"`
-	TimeSeries5Min  map[string]OHLC  `json:"Time Series (5min),omitempty"`
-	TimeSeries15Min map[string]OHLC  `json:"Time Series (15min),omitempty"`
-	TimeSeries30Min map[string]OHLC  `json:"Time Series (30min),omitempty"`
-	TimeSeries60Min map[string]OHLC  `json:"Time Series (60min),omitempty"`
+	MetaData        IntraDayMetaData     `json:"Meta Data"`
+	TimeSeries1Min  map[string]StockOHLC `json:"Time Series (1min),omitempty"`
+	TimeSeries5Min  map[string]StockOHLC `json:"Time Series (5min),omitempty"`
+	TimeSeries15Min map[string]StockOHLC `json:"Time Series (15min),omitempty"`
+	TimeSeries30Min map[string]StockOHLC `json:"Time Series (30min),omitempty"`
+	TimeSeries60Min map[string]StockOHLC `json:"Time Series (60min),omitempty"`
 }
 
 type DailyList struct {
-	MetaData        DailyMetaData   `json:"Meta Data"`
-	TimeSeriesDaily map[string]OHLC `json:"Time Series (Daily)"`
+	MetaData        DailyMetaData        `json:"Meta Data"`
+	TimeSeriesDaily map[string]StockOHLC `json:"Time Series (Daily)"`
 }
 
 type DailyAdjustedList struct {
-	MetaData        DailyMetaData           `json:"Meta Data"`
-	TimeSeriesDaily map[string]OHLCAdjusted `json:"Time Series (Daily)"`
+	MetaData        DailyMetaData                `json:"Meta Data"`
+	TimeSeriesDaily map[string]StockOHLCAdjusted `json:"Time Series (Daily)"`
 }
 
 type WeeklyList struct {
-	MetaData         WeeklyMetaData  `json:"Meta Data"`
-	WeeklyTimeSeries map[string]OHLC `json:"Weekly Time Series"`
+	MetaData         WeeklyMetaData       `json:"Meta Data"`
+	WeeklyTimeSeries map[string]StockOHLC `json:"Weekly Time Series"`
 }
 
 type WeeklyAdjustedList struct {
-	MetaData         WeeklyMetaData          `json:"Meta Data"`
-	WeeklyTimeSeries map[string]OHLCAdjusted `json:"Weekly Adjusted Time Series"`
+	MetaData         WeeklyMetaData               `json:"Meta Data"`
+	WeeklyTimeSeries map[string]StockOHLCAdjusted `json:"Weekly Adjusted Time Series"`
 }
 
 type MonthlyList struct {
-	MetaData          MonthlyMetaData `json:"Meta Data"`
-	MonthlyTimeSeries map[string]OHLC `json:"Monthly Time Series"`
+	MetaData          MonthlyMetaData      `json:"Meta Data"`
+	MonthlyTimeSeries map[string]StockOHLC `json:"Monthly Time Series"`
 }
 
 type MonthlyAdjustedList struct {
-	MetaData          MonthlyAdjustedMetaData `json:"Meta Data"`
-	MonthlyTimeSeries map[string]OHLCAdjusted `json:"Monthly Adjusted Time Series"`
+	MetaData          MonthlyAdjustedMetaData      `json:"Meta Data"`
+	MonthlyTimeSeries map[string]StockOHLCAdjusted `json:"Monthly Adjusted Time Series"`
 }
 
 type QuoteList struct {
@@ -126,7 +126,7 @@ type MonthlyMetaData WeeklyMetaData
 
 type MonthlyAdjustedMetaData WeeklyMetaData
 
-type OHLC struct {
+type StockOHLC struct {
 	Open   string `json:"1. open"`
 	High   string `json:"2. high"`
 	Low    string `json:"3. low"`
@@ -134,7 +134,7 @@ type OHLC struct {
 	Volume string `json:"5. volume"`
 }
 
-type OHLCAdjusted struct {
+type StockOHLCAdjusted struct {
 	Open             string `json:"1. open"`
 	High             string `json:"2. high"`
 	Low              string `json:"3. low"`
