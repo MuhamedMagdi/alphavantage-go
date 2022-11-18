@@ -16,7 +16,8 @@ type Client struct {
 }
 
 type errorResponse struct {
-	ErrorMessage string `json:"Error Message"`
+	ErrorMessage string `json:"Error Message,omitempty"`
+	Information  string `json:"Information,omitempty"`
 }
 
 func NewClient(apiKey string) *Client {
@@ -45,6 +46,9 @@ func (c *Client) sendRequest(req *http.Request, v interface{}) error {
 	if err = json.NewDecoder(errorBody).Decode(&errRes); err == nil {
 		if len(errRes.ErrorMessage) != 0 {
 			return errors.New(errRes.ErrorMessage)
+		}
+		if len(errRes.Information) != 0 {
+			return errors.New(errRes.Information)
 		}
 	}
 	fullResponse := v
