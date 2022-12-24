@@ -23,6 +23,8 @@ type FXWeeklyOptions struct {
 	ToSymbol   string `json:"to_symbol"`
 }
 
+type FXMonthlyOptions FXWeeklyOptions
+
 type CurrencyExchangeRateList struct {
 	RealtimeCurrencyExchangeRate struct {
 		FromCurrencyCode string `json:"1. From_Currency Code"`
@@ -93,3 +95,12 @@ type FXWeeklyMetaData struct {
 }
 
 type FXWeeklyOHLC FXIntraDayOHLC
+
+type FXMonthlyList struct {
+	MetaData            FXMonthlyMetaData        `json:"Meta Data"`
+	TimeSeriesFXMonthly map[string]FXMonthlyOHLC `json:"Time Series FX (Monthly)"`
+}
+
+type FXMonthlyMetaData FXWeeklyMetaData
+
+type FXMonthlyOHLC FXIntraDayOHLC

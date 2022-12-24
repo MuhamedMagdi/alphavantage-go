@@ -72,3 +72,20 @@ func (c *Client) GetFXWeekly(options *FXWeeklyOptions) (*FXWeeklyList, error) {
 	}
 	return &res, nil
 }
+
+func (c *Client) GetFXMonthly(options *FXMonthlyOptions) (*FXMonthlyList, error) {
+	const function = "FX_MONTHLY"
+	var fromSymbol, toSymbol string
+	if options != nil {
+		fromSymbol = options.FromSymbol
+        toSymbol = options.ToSymbol
+	}
+
+	res := FXMonthlyList{}
+	query := fmt.Sprintf("%s/query?function=%s&from_symbol=%s&to_symbol=%s&apikey=%s", c.baseURL, function, fromSymbol, toSymbol, c.apiKey)
+
+	if err := c.processRequest(query, &res); err != nil {
+		return nil, err
+	}
+	return &res, nil
+}
