@@ -40,8 +40,8 @@ calls available in their documentation http://www.alphavantage.co/documentation.
 - [x] Exchange Rates
 - [x] Intraday
 - [x] Daily
-- [ ] Weekly
-- [ ] Monthly
+- [x] Weekly
+- [x] Monthly
 
 ### Cryptocurrencies (Not Implemented)
 
