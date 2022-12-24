@@ -12,9 +12,10 @@ type FXIntrDayOptions struct {
 	OutputSize string `json:"outputsize,omitempty"`
 }
 
-type CryptoDailyOptions struct {
-	Symbol string `json:"symbol"`
-	Market string `json:"market"`
+type FXDailyOptions struct {
+	FromSymbol string `json:"from_symbol"`
+	ToSymbol   string `json:"to_symbol"`
+	OutputSize string `json:"outputsize,omitempty"`
 }
 
 type CurrencyExchangeRateList struct {
@@ -57,18 +58,18 @@ type FXIntraDayOHLC struct {
 	Close  string `json:"4. close"`
 }
 
-type CryptoDailyList struct {
-	MetaData                       CryptoDailyMetaData          `json:"Meta Data"`
-	TimeSeriesDigitalCurrencyDaily map[string]map[string]string `json:"Time Series (Digital Currency Daily)"`
-	// FIXME: update the type				  ^
+type FXDailyList struct {
+	MetaData          FXDailyMetaData        `json:"Meta Data"`
+	TimeSeriesFXDaily map[string]FXDailyOHLC `json:"Time Series FX (Daily)"`
 }
 
-type CryptoDailyMetaData struct {
-	Information         string `json:"1. Information"`
-	DigitalCurrencyCode string `json:"2. Digital Currency Code"`
-	DigitalCurrencyName string `json:"3. Digital Currency Name"`
-	MarketCode          string `json:"4. Market Code"`
-	MarketName          string `json:"5. Market Name"`
-	LastRefreshed       string `json:"6. Last Refreshed"`
-	TimeZone            string `json:"7. Time Zone"`
+type FXDailyMetaData struct {
+	Information   string `json:"1. Information"`
+	FromSymbol    string `json:"2. From Symbol"`
+	ToSymbol      string `json:"3. To Symbol"`
+	OutputSize    string `json:"4. Output Size"`
+	LastRefreshed string `json:"5. Last Refreshed"`
+	TimeZone      string `json:"6. Time Zone"`
 }
+
+type FXDailyOHLC FXIntraDayOHLC

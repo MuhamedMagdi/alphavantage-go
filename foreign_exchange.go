@@ -38,20 +38,20 @@ func (c *Client) GetFXIntraDay(options *FXIntrDayOptions) (*FXIntraDayList, erro
 	return &res, nil
 }
 
-func (c *Client) GetCryptoDaily(options *CryptoDailyOptions) (*CryptoDailyList, error) {
-	const function = "DIGITAL_CURRENCY_DAILY"
-	var symbol, market string
+func (c *Client) GetFXDaily(options *FXDailyOptions) (*FXDailyList, error) {
+	const function = "FX_DAILY"
+	var fromSymbol, toSymbol, outputSize string
 	if options != nil {
-		symbol = options.Symbol
-		market = options.Market
+		fromSymbol = options.FromSymbol
+        toSymbol = options.ToSymbol
+		outputSize = options.OutputSize
 	}
 
-	res := CryptoDailyList{}
-	query := fmt.Sprintf("%s/query?function=%s&symbol=%s&market=%s&&apikey=%s", c.baseURL, function, symbol, market, c.apiKey)
+	res := FXDailyList{}
+	query := fmt.Sprintf("%s/query?function=%s&from_symbol=%s&to_symbol=%s&outputsize=%s&apikey=%s", c.baseURL, function, fromSymbol, toSymbol, outputSize, c.apiKey)
 
 	if err := c.processRequest(query, &res); err != nil {
 		return nil, err
 	}
-	fmt.Println(res)
 	return &res, nil
 }
