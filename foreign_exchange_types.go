@@ -5,9 +5,9 @@ type CurrencyExchangeRateOptions struct {
 	ToCurrency   string `json:"to_currency"`
 }
 
-type CryptoIntrDayOptions struct {
-	Symbol     string `json:"symbol"`
-	Market     string `json:"market"`
+type FXIntrDayOptions struct {
+	FromSymbol string `json:"from_symbol"`
+	ToSymbol   string `json:"to_symbol"`
 	Interval   string `json:"interval"`
 	OutputSize string `json:"outputsize,omitempty"`
 }
@@ -31,33 +31,30 @@ type CurrencyExchangeRateList struct {
 	} `json:"Realtime Currency Exchange Rate"`
 }
 
-type CryptoIntraDayList struct {
-	MetaData              CryptoIntraDayMetaData        `json:"Meta Data"`
-	TimeSeriesCrypto1Min  map[string]CryptoIntraDayOHLC `json:"Time Series Crypto (1min),omitempty"`
-	TimeSeriesCrypto5Min  map[string]CryptoIntraDayOHLC `json:"Time Series Crypto (5min),omitempty"`
-	TimeSeriesCrypto15Min map[string]CryptoIntraDayOHLC `json:"Time Series Crypto (15min),omitempty"`
-	TimeSeriesCrypto30Min map[string]CryptoIntraDayOHLC `json:"Time Series Crypto (30min),omitempty"`
-	TimeSeriesCrypto60Min map[string]CryptoIntraDayOHLC `json:"Time Series Crypto (60min),omitempty"`
+type FXIntraDayList struct {
+	MetaData              FXIntraDayMetaData        `json:"Meta Data"`
+	TimeSeriesCrypto1Min  map[string]FXIntraDayOHLC `json:"Time Series FX (1min),omitempty"`
+	TimeSeriesCrypto5Min  map[string]FXIntraDayOHLC `json:"Time Series FX (5min),omitempty"`
+	TimeSeriesCrypto15Min map[string]FXIntraDayOHLC `json:"Time Series FX (15min),omitempty"`
+	TimeSeriesCrypto30Min map[string]FXIntraDayOHLC `json:"Time Series FX (30min),omitempty"`
+	TimeSeriesCrypto60Min map[string]FXIntraDayOHLC `json:"Time Series FX (60min),omitempty"`
 }
 
-type CryptoIntraDayMetaData struct {
-	Information         string `json:"1. Information"`
-	DigitalCurrencyCode string `json:"2. Digital Currency Code"`
-	DigitalCurrencyName string `json:"3. Digital Currency Name"`
-	MarketCode          string `json:"4. Market Code"`
-	MarketName          string `json:"5. Market Name"`
-	LastRefreshed       string `json:"6. Last Refreshed"`
-	Interval            string `json:"7. Interval"`
-	OutputSize          string `json:"8. Output Size"`
-	TimeZone            string `json:"9. Time Zone"`
+type FXIntraDayMetaData struct {
+	Information    string `json:"1. Information"`
+	FromSymbol     string `json:"2. From Symbol"`
+	ToSymbol       string `json:"3. To Symbol"`
+	LastRefreshed  string `json:"4. Last Refreshed"`
+	Interval       string `json:"5. Interval"`
+	OutputSize     string `json:"6. Output Size"`
+	TimeZone       string `json:"7. Time Zone"`
 }
 
-type CryptoIntraDayOHLC struct {
+type FXIntraDayOHLC struct {
 	Open   string `json:"1. open"`
 	High   string `json:"2. high"`
 	Low    string `json:"3. low"`
 	Close  string `json:"4. close"`
-	Volume int    `json:"5. volume"`
 }
 
 type CryptoDailyList struct {

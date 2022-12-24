@@ -20,16 +20,16 @@ func TestGetCurrencyExchangeRate(t *testing.T) {
 	assert.Equal(t, res.RealtimeCurrencyExchangeRate.FromCurrencyCode, "BTC")
 }
 
-func TestGetCryptoIntraDay(t *testing.T) {
-	c := NewClient(os.Getenv("ALPHA_Vantage_API_KEY"))
-	options := &CryptoIntrDayOptions{
-		Symbol:     "ETH",
-		Market:     "USD",
+func TestGetFXIntraDay(t *testing.T) {
+	c := NewClient("demo")
+	options := &FXIntrDayOptions{
+		FromSymbol: "EUR",
+        ToSymbol:   "USD",
 		Interval:   "5min",
 		OutputSize: "full",
 	}
-	res, _ := c.GetCryptoIntraDay(options)
-	assert.Equal(t, res.MetaData.DigitalCurrencyCode, "ETH")
+	res, _ := c.GetFXIntraDay(options)
+	assert.Equal(t, res.MetaData.FromSymbol, "EUR")
 }
 
 func TestGetCryptoDaily(t *testing.T) {

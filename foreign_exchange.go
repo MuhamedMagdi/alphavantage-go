@@ -19,18 +19,18 @@ func (c *Client) GetCurrencyExchangeRate(options *CurrencyExchangeRateOptions) (
 	return &res, nil
 }
 
-func (c *Client) GetCryptoIntraDay(options *CryptoIntrDayOptions) (*CryptoIntraDayList, error) {
-	const function = "CRYPTO_INTRADAY"
-	var symbol, market, interval, outputSize string
+func (c *Client) GetFXIntraDay(options *FXIntrDayOptions) (*FXIntraDayList, error) {
+	const function = "FX_INTRADAY"
+	var fromSymbol, toSymbol, interval, outputSize string
 	if options != nil {
-		symbol = options.Symbol
-		market = options.Market
+		fromSymbol = options.FromSymbol
+        toSymbol = options.ToSymbol
 		interval = options.Interval
 		outputSize = options.OutputSize
 	}
 
-	res := CryptoIntraDayList{}
-	query := fmt.Sprintf("%s/query?function=%s&symbol=%s&market=%s&interval=%s&outputsize=%s&apikey=%s", c.baseURL, function, symbol, market, interval, outputSize, c.apiKey)
+	res := FXIntraDayList{}
+	query := fmt.Sprintf("%s/query?function=%s&from_symbol=%s&to_symbol=%s&interval=%s&outputsize=%s&apikey=%s", c.baseURL, function, fromSymbol, toSymbol, interval, outputSize, c.apiKey)
 
 	if err := c.processRequest(query, &res); err != nil {
 		return nil, err
