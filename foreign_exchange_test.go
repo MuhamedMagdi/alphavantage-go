@@ -42,3 +42,13 @@ func TestGetFXDaily(t *testing.T) {
 	res, _ := c.GetFXDaily(options)
 	assert.Equal(t, res.MetaData.FromSymbol, "EUR")
 }
+
+func TestGetFXWeekly(t *testing.T) {
+	c := NewClient(os.Getenv("ALPHA_Vantage_API_KEY"))
+	options := &FXWeeklyOptions{
+		FromSymbol: "EUR",
+        ToSymbol:   "USD",
+	}
+	res, _ := c.GetFXWeekly(options)
+	assert.Equal(t, res.MetaData.FromSymbol, "EUR")
+}
